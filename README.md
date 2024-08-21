@@ -1,6 +1,6 @@
 # Проектная работа курса OTUS Архитектура и шаблоны проектирования
 
-[![codecov](https://codecov.io/github/YaroslavErlikh/otus-main-pattrns-project/graph/badge.svg?token=FQRV0XJVX0)](https://codecov.io/github/YaroslavErlikh/otus-main-pattrns-project)
+[![codecov](https://codecov.io/github/YaroslavErlikh/otus-main-pattrns-project/branch/main/graph/badge.svg?token=FQRV0XJVX0)](https://codecov.io/github/YaroslavErlikh/otus-main-pattrns-project)
 
 ## Описание
 
