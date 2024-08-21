@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: auth
+
+springdoc:
+  pre-loading-enabled: true
+  show-actuator: false
+  swagger-ui:
+    default-model-expand-depth: 0
+    default-models-expand-depth: 0
+    disable-swagger-default-url: true
+    doc-expansion: false
+    operations-sorter: alpha
+    tags-sorter: alpha
+    display-request-duration: true
+    use-root-path: true
+    path: /swagger-ui.html
+    url: /v3/api-docs

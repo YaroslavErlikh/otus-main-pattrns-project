@@ -1,0 +1,14 @@
+spring:
+  main:
+    banner-mode: off
+
+msa:
+  clients:
+    jwt:
+      base-url: ${wiremock.server.base-url}/jwt
+    user:
+      base-url: ${wiremock.server.base-url}/user
+
+logging:
+  level:
+    root: OFF

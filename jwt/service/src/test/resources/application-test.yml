@@ -1,0 +1,10 @@
+spring:
+  main:
+    banner-mode: off
+
+jwt:
+  secret-key: secret
+
+logging:
+  level:
+    root: OFF

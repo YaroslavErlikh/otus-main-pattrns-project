@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+msa:
+  clients:
+    jwt:
+      base-url: http://jwt:8080
+    editor:
+      base-url: http://editor:8080

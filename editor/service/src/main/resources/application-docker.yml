@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: editordb
+
+msa:
+  clients:
+    jwt:
+      base-url: http://jwt:8080

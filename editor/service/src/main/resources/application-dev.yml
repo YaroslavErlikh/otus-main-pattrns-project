@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: editordb
+
+msa:
+  clients:
+    jwt:
+      base-url: http://localhost:8182
+
+logging:
+  pattern.console: '%white([%thread]) %highlight(%-5level) %cyan(%logger{5}) %magenta([%file:%-4L]) - %msg%n'
+  level:
+    root: INFO

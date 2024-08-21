@@ -1,0 +1,7 @@
+server:
+  port: 8182
+
+logging:
+  pattern.console: '%white([%thread]) %highlight(%-5level) %cyan(%logger{5}) %magenta([%file:%-4L]) - %msg%n'
+  level:
+    root: INFO

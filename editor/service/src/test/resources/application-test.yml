@@ -1,0 +1,14 @@
+spring:
+  main:
+    banner-mode: off
+
+de.flapdoodle.mongodb.embedded.version: 4.4.0
+
+msa:
+  clients:
+    jwt:
+      base-url: ${wiremock.server.base-url}/jwt
+
+logging:
+  level:
+    root: OFF
