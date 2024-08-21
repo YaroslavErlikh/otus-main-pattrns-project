@@ -11,16 +11,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Install dependencies
-        run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       - name: Build with Maven
         run: mvn -B verify --no-transfer-progress
-      - name: Run tests and collect coverage
-        run: mvn -B test
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        env:
-          CODECOV_TOKEN: 10f3b84b-dc5b-4ab1-8438-2e8d1c945cf7
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
         with:
-          token: 10f3b84b-dc5b-4ab1-8438-2e8d1c945cf7
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./**/target/site/jacoco/jacoco.xml
