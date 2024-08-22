@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc
 @AutoConfigureDataMongo
 @ActiveProfiles("test")
 @ContextConfiguration(
-        initializers = { WireMockInitializer.class; SBTestFailFastContextInitializer.class }
+        initializers = [ WireMockInitializer.class, SBTestFailFastContextInitializer.class ]
 )
 class AbstractSBTest {
 

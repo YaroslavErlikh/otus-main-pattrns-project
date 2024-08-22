@@ -3,6 +3,7 @@ package erlikh.yaroslav.auth.controller
 import erlikh.yaroslav.api.auth.AuthRequestDto
 import erlikh.yaroslav.api.auth.AuthResponseDto
 import erlikh.yaroslav.api.jwt.JwtGenerationRequestDto
+import erlikh.yaroslav.jwt.client.JwtClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
