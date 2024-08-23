@@ -1,4 +1,4 @@
-package erlikh.yaroslav.editor.test.config
+package erlikh.yaroslav.test.context
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration

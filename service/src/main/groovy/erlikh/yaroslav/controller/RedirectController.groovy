@@ -22,6 +22,7 @@ class RedirectController {
 
     @PostMapping("/redirect")
     ResponseEntity<RedirectResponseDto> redirect(@RequestBody RedirectContextDto contextDto) {
-        ResponseEntity.ok(new RedirectResponseDto(link: redirectService.getLink(RuleConverter.toDomain(contextDto))))
+        def dto = new RedirectResponseDto(redirectService.getLink(RuleConverter.toDomain(contextDto)))
+        return ResponseEntity.ok(dto)
     }
 }

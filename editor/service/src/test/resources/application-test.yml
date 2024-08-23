@@ -7,7 +7,7 @@ de.flapdoodle.mongodb.embedded.version: 4.4.0
 msa:
   clients:
     jwt:
-      base-url: ${wiremock.server.base-url}/jwt
+      baseUrl: ${wiremock.server.base-url}/jwt
 
 logging:
   level:

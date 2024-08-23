@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component
 
 import java.time.Duration
 
-@Component
 @ConfigurationProperties("msa.clients.jwt")
 class JwtClientProps extends RestProps {
 

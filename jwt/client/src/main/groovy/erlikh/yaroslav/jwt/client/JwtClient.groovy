@@ -1,6 +1,8 @@
 package erlikh.yaroslav.jwt.client
 
 import erlikh.yaroslav.api.jwt.*
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 
@@ -15,11 +17,11 @@ class JwtClient {
     }
 
     JwtGenerationResponseDto generate(JwtGenerationRequestDto jwtGenerationReqDto) {
-        restTemplate.postForObject("$baseUrl/generate", jwtGenerationReqDto, JwtGenerationResponseDto.class)
+        restTemplate.postForObject("${baseUrl}/generate", jwtGenerationReqDto, JwtGenerationResponseDto.class)
     }
 
     JwtGenerationResponseDto techToken() {
-        restTemplate.postForObject("$baseUrl/tech-token", null, JwtGenerationResponseDto.class)
+        restTemplate.postForObject("${baseUrl}/tech-token", null, JwtGenerationResponseDto.class)
     }
 
     JwtUsernameResponseDto getUsername(String jwtToken) {

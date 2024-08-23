@@ -1,6 +1,8 @@
 package erlikh.yaroslav.jwt.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import erlikh.yaroslav.common.openapi.InfoOpenApiCustomizer
 import org.springdoc.core.customizers.OpenApiCustomizer
 import org.springframework.context.annotation.Bean
@@ -12,7 +14,9 @@ class AppConfig {
 
     @Bean
     ObjectMapper objectMapper() {
-        return ObjectMapperHelperKt.OBJECT_MAPPER
+        return JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build()
     }
 
     @Bean

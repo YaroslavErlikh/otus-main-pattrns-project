@@ -5,9 +5,9 @@ spring:
 msa:
   clients:
     jwt:
-      base-url: ${wiremock.server.base-url}/jwt
+      baseUrl: ${wiremock.server.base-url}/jwt
     editor:
-      base-url: ${wiremock.server.base-url}/editor
+      baseUrl: ${wiremock.server.base-url}/editor
 
 logging:
   level:

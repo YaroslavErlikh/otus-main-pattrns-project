@@ -16,6 +16,9 @@ class SmartLinkRuleDto {
     @JsonProperty(value = "link", required = true)
     String link
 
+    SmartLinkRuleDto() {
+    }
+
     SmartLinkRuleDto(String name, String type, String rule, String link) {
         this.name = name
         this.type = type

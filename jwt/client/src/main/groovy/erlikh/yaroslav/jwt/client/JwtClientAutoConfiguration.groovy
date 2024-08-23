@@ -1,6 +1,8 @@
 package erlikh.yaroslav.jwt.client
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import erlikh.yaroslav.common.rest.RestTemplateFactory
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
@@ -16,7 +18,9 @@ class JwtClientAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     ObjectMapper objectMapper() {
-        return ObjectMapperHelperKt.OBJECT_MAPPER
+        return JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build()
     }
 
     @Bean

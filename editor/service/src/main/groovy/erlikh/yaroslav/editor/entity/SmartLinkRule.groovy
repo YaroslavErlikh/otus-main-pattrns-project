@@ -20,6 +20,9 @@ class SmartLinkRule {
     String rule = EMPTY
     String link = EMPTY
 
+    SmartLinkRule() {
+    }
+
     SmartLinkRule(String name, String type, String rule, String link) {
         this.name = name
         this.type = type

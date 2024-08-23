@@ -11,16 +11,16 @@ class WireMockInitializer implements ApplicationContextInitializer<ConfigurableA
 
     @Override
     void initialize(ConfigurableApplicationContext applicationContext) {
-        WireMockServer wireMockServer = new WireMockServer(WireMockConfiguration.wireMockConfig().dynamicPort())
+        def wireMockServer = new WireMockServer(new WireMockConfiguration().dynamicPort())
         wireMockServer.start()
-        applicationContext.getBeanFactory().registerSingleton("wm", wireMockServer)
+        applicationContext.beanFactory.registerSingleton("wm", wireMockServer)
         applicationContext.addApplicationListener(event -> {
             if (event instanceof ContextClosedEvent) {
                 wireMockServer.stop()
             }
         })
         TestPropertyValues
-                .of(java.util.Collections.singletonMap("wiremock.server.base-url", wireMockServer.baseUrl()))
+                .of(Map.of("wiremock.server.base-url", wireMockServer.baseUrl()))
                 .applyTo(applicationContext)
     }
 }

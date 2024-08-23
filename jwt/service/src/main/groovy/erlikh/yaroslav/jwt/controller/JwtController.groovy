@@ -19,7 +19,7 @@ class JwtController {
     private JwtTokenService jwtTokenService
 
     @GetMapping("/username")
-     ResponseEntity<JwtUsernameResponseDto> getUsername(@RequestParam(value = "token", required = true) String token) {
+    ResponseEntity<JwtUsernameResponseDto> getUsername(@RequestParam(value = "token", required = true) String token) {
         return ResponseEntity.ok(new JwtUsernameResponseDto(jwtTokenService.getUsername(token)))
     }
 

@@ -4,6 +4,6 @@ server:
 msa:
   clients:
     jwt:
-      base-url: http://jwt:8080
+      baseUrl: http://jwt:8080
     editor:
-      base-url: http://editor:8080
+      baseUrl: http://editor:8080

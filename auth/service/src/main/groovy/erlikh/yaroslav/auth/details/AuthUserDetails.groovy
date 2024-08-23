@@ -20,7 +20,7 @@ class AuthUserDetails implements UserDetails {
 
     @Override
     List getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role?.name))
+        return List.of(new SimpleGrantedAuthority(role?.name()))
     }
 
     @Override

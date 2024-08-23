@@ -6,15 +6,16 @@ import erlikh.yaroslav.api.user.UserRole
 import erlikh.yaroslav.jwt.test.AbstractSBTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 
 import static erlikh.yaroslav.common.test.TestHelper.token
 import static org.hamcrest.Matchers.is
-import static org.mockito.ArgumentMatchers.anyString
+import static org.hamcrest.Matchers.isA
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 
 @DisplayName("Контроллер JWT")
 class JwtControllerSBTest extends AbstractSBTest {
@@ -24,7 +25,7 @@ class JwtControllerSBTest extends AbstractSBTest {
     @DisplayName("должен возвращать ожидаемое имя пользователя")
     @Test
     void 'should return expected username'() {
-        mockMvc.perform(get("$basePath/username")
+        mockMvc.perform(get("${basePath}/username")
                 .param("token", token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath('$.username', is("user")))
@@ -36,10 +37,11 @@ class JwtControllerSBTest extends AbstractSBTest {
     void 'should generate token'() {
         def requestDto = new JwtGenerationRequestDto("username", UserRole.USER.name())
 
-        mockMvc.perform(post("$basePath/generate")
-                .header(MediaType.APPLICATION_JSON_VALUE, jsonObjectMapper.writeValueAsString(requestDto)))
+        mockMvc.perform(post("${basePath}/generate")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .content(jsonObjectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath('$.token', anyString()))
+                .andExpect(jsonPath('$.token', isA(String.class)))
         .andReturn()
     }
 
@@ -48,7 +50,7 @@ class JwtControllerSBTest extends AbstractSBTest {
     void 'should generate technical token'() {
         mockMvc.perform(post("$basePath/tech-token"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath('$.token', anyString()))
+                .andExpect(jsonPath('$.token', isA(String.class)))
         .andReturn()
     }
 
@@ -58,7 +60,8 @@ class JwtControllerSBTest extends AbstractSBTest {
         def requestDto = new JwtValidationRequestDto(token)
 
         mockMvc.perform(post("$basePath/validate")
-                .header(MediaType.APPLICATION_JSON_VALUE, jsonObjectMapper.writeValueAsString(requestDto)))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .content(jsonObjectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath('$.isValid', is(true)))
         .andReturn()

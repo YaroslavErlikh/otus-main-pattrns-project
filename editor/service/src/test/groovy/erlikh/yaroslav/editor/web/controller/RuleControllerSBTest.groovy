@@ -42,15 +42,16 @@ class RuleControllerSBTest extends AbstractSBTest {
         ruleRepository.saveAll(Arrays.asList(ruleEntity, ruleEntity2))
 
         // when
-        String response = mockMvc.perform(get(basePath, request -> request.header(HttpHeaders.AUTHORIZATION, "Bearer " + token)))
+        String response = mockMvc.perform(get(basePath)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString()
         List<SmartLinkRuleDto> actual = jsonObjectMapper.readValue(response, new TypeReference<List<SmartLinkRuleDto>>() {
         })
 
         // then
-        assertThat(actual).contains(rule, rule2)
+        assertThat(actual.size()).isEqualTo(2)
+        assertThat(actual.get(0)).usingRecursiveComparison().isEqualTo(rule)
+        assertThat(actual.get(1)).usingRecursiveComparison().isEqualTo(rule2)
     }
 }
-
-

@@ -1,5 +1,6 @@
 package erlikh.yaroslav.service
 
+import erlikh.yaroslav.api.redirect.RedirectContextDto
 import erlikh.yaroslav.api.smart.SmartLinkRuleDto
 import erlikh.yaroslav.domain.RuleContext
 import erlikh.yaroslav.editor.client.EditorClient
@@ -20,12 +21,11 @@ class RedirectService {
     private EditorClient editorClient
 
     String getLink(RuleContext context) {
-        SmartLinkRuleDto[] linkRuleDtoArr = editorClient.getAll()
-        Arrays.asList(linkRuleDtoArr).stream()
-                .map(it -> RuleConverter.toDomain(it))
+        return Arrays.asList(editorClient.getAll()).stream()
+                .map(rule -> RuleConverter.toDomain(rule))
                 .flatMap(rule -> smartLinkRuleHandlers.stream()
                         .map(handler -> handler.handle(rule, context))
-                        .filter(result -> result != null))
+                        .filter(Objects::nonNull))
                 .findFirst()
                 .orElse(DEFAULT_URL)
     }

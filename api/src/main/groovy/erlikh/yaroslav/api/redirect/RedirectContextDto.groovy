@@ -11,4 +11,12 @@ class RedirectContextDto {
 
     @JsonProperty(value = "device", required = false)
     String device = null
+
+    RedirectContextDto() {
+    }
+
+    RedirectContextDto(LocalTime time, String device) {
+        this.time = time
+        this.device = device
+    }
 }

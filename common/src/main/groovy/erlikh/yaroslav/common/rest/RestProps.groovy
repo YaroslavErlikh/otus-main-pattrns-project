@@ -34,4 +34,16 @@ class RestProps {
     Duration getReadTimeout() {
         return readTimeout
     }
+
+    void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl
+    }
+
+    void setConnectTimeout(Duration connectTimeout) {
+        this.connectTimeout = connectTimeout
+    }
+
+    void setReadTimeout(Duration readTimeout) {
+        this.readTimeout = readTimeout
+    }
 }

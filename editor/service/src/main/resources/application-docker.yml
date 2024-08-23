@@ -11,4 +11,4 @@ spring:
 msa:
   clients:
     jwt:
-      base-url: http://jwt:8080
+      baseUrl: http://jwt:8080

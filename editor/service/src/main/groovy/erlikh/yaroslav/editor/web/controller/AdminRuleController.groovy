@@ -43,7 +43,7 @@ class AdminRuleController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity deleteEmployeeById(@PathVariable(value = "id") String id) {
-        return ResponseEntityConverter.toResponseEntity(ruleService.delete(id))
+    void deleteEmployeeById(@PathVariable("id") String id) {
+        ruleService.delete(id)
     }
 }

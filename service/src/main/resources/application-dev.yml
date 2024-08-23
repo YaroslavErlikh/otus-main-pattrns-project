@@ -4,9 +4,9 @@ server:
 msa:
   clients:
     jwt:
-      base-url: http://localhost:8182
+      baseUrl: http://localhost:8182
     editor:
-      base-url: http://localhost:8082
+      baseUrl: http://localhost:8082
 
 logging:
   pattern.console: '%white([%thread]) %highlight(%-5level) %cyan(%logger{5}) %magenta([%file:%-4L]) - %msg%n'

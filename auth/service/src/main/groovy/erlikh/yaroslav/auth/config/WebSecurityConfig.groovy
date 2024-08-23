@@ -19,15 +19,15 @@ class WebSecurityConfig {
                 .cors { it.disable() }
                 .authorizeHttpRequests { auth ->
                     auth
-                            .requestMatchers("/api/v1/auth/**").anonymous()
-                            .requestMatchers(RestHelper.getAUTH_WHITELIST()).anonymous()
+                            .requestMatchers("/api/v1/auth/**").permitAll()
+                            .requestMatchers(RestHelper.AUTH_WHITELIST).permitAll()
                             .anyRequest().authenticated()
                 }
                 .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
                 .exceptionHandling { ex ->
-                    ex.authenticationEntryPoint { response ->
-                        response.sendError(401, "Unauthorized")
-                    }
+                    ex.authenticationEntryPoint((request, response, authException) ->
+                            response.sendError(401, "Unauthorized")
+                    )
                 }
                 .build()
     }

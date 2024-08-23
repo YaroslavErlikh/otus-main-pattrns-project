@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static erlikh.yaroslav.common.test.TestHelper.adminToken
 import static org.assertj.core.api.Assertions.assertThat
@@ -29,14 +30,14 @@ class AdminRuleControllerSBTest extends AbstractSBTest {
     @BeforeEach
     void setUp() {
         wm.stubFor(WireMock.post(urlEqualTo("/jwt/api/v1/jwt/validate"))
-                .willReturn(aResponse().withBody("{\"isValid\": true}").withHeader("Content-Type", "application/json")))
+                .willReturn(okJson("{\"isValid\": true}")))
     }
 
     @DisplayName("должен возвращать ожидаемое правило по id")
     @Test
     void shouldReturnExpectedRuleById() throws Exception {
         // given
-        Long ruleId = ruleRepository.save(ruleEntity).getId()
+        def ruleId = ruleRepository.save(ruleEntity).getId()
 
         // when
         String response = mockMvc.perform(get(basePath + "/" + ruleId)
@@ -46,7 +47,7 @@ class AdminRuleControllerSBTest extends AbstractSBTest {
         SmartLinkRuleDto actual = jsonObjectMapper.readValue(response, SmartLinkRuleDto.class)
 
         // then
-        assertThat(actual).isEqualTo(rule)
+        assertThat(actual).usingRecursiveComparison().isEqualTo(rule)
     }
 
     @DisplayName("должен добавлять ожидаемое правило")
@@ -72,7 +73,7 @@ class AdminRuleControllerSBTest extends AbstractSBTest {
     @Test
     void shouldUpdateExpectedRule() throws Exception {
         // given
-        Long ruleId = ruleRepository.save(ruleEntity).getId()
+        String ruleId = ruleRepository.save(ruleEntity).getId()
         SmartLinkRuleUpdateDto updatedRule = new SmartLinkRuleUpdateDto("updatedRule", "updatedType", "{}", "updatedLink")
 
         // when
@@ -96,9 +97,8 @@ class AdminRuleControllerSBTest extends AbstractSBTest {
 
         // when
         mockMvc.perform(delete(basePath + "/" + ruleId)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + adminToken))
+                .header(HttpHeaders.AUTHORIZATION, "Bearer ${adminToken}"))
                 .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString()
 
         // then
         assertThat(ruleRepository.findById(ruleId)).isEmpty()

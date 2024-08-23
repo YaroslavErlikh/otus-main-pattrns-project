@@ -1,6 +1,8 @@
 package erlikh.yaroslav.auth.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import erlikh.yaroslav.auth.service.AuthUserDetailsService
 import erlikh.yaroslav.common.openapi.InfoOpenApiCustomizer
 import org.springdoc.core.customizers.OpenApiCustomizer
@@ -16,7 +18,9 @@ class AppConfig {
 
     @Bean
     ObjectMapper objectMapper() {
-        return new ObjectMapper()
+        return JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build()
     }
 
     @Bean
@@ -31,6 +35,8 @@ class AppConfig {
 
     @Bean
     ProviderManager authenticationManager(PasswordEncoder passwordEncoder, AuthUserDetailsService userDetailsService) {
-        return new ProviderManager(new DaoAuthenticationProvider(passwordEncoder).setUserDetailsService(userDetailsService))
+        def provider = new DaoAuthenticationProvider(passwordEncoder)
+        provider.setUserDetailsService(userDetailsService)
+        return new ProviderManager(List.of(provider))
     }
 }
