@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static erlikh.yaroslav.common.test.TestHelper.adminToken

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static erlikh.yaroslav.common.test.TestHelper.token
@@ -32,7 +32,7 @@ class RuleControllerSBTest extends AbstractSBTest {
     @BeforeEach
     void setUp() {
         wm.stubFor(WireMock.post(urlEqualTo("/jwt/api/v1/jwt/validate"))
-                .willReturn(aResponse().withBody("{\"isValid\": true}").withHeader("Content-Type", "application/json")))
+                .willReturn(okJson("{\"isValid\": true}").withHeader("Content-Type", "application/json")))
     }
 
     @DisplayName("должен возвращать ожидаемые правила")
