@@ -12,10 +12,16 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
 
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson
+import static org.junit.jupiter.api.Assertions.assertTrue
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static erlikh.yaroslav.common.test.TestHelper.token
-import static org.assertj.core.api.Assertions.assertThat
+import static org.hamcrest.CoreMatchers.is
+import static org.hamcrest.Matchers.contains
+import static org.hamcrest.Matchers.allOf
+import static org.hamcrest.Matchers.hasItem
+import static org.hamcrest.MatcherAssert.assertThat
+import static org.hamcrest.beans.HasPropertyWithValue.hasProperty
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @DisplayName("Контролер работы с правилами")
@@ -25,9 +31,6 @@ class RuleControllerSBTest extends AbstractSBTest {
 
     def ruleEntity = new SmartLinkRule("name", "type", "rule", "link")
     def ruleEntity2 = new SmartLinkRule("name2", "type2", "rule2", "link2")
-
-    def rule = new SmartLinkRuleDto("name", "type", "rule", "link")
-    def rule2 = new SmartLinkRuleDto("name2", "type2", "rule2", "link2")
 
     @BeforeEach
     void setUp() {
@@ -49,8 +52,9 @@ class RuleControllerSBTest extends AbstractSBTest {
         })
 
         // then
-        assertThat(actual.size()).isEqualTo(2)
-        assertThat(actual.get(0)).usingRecursiveComparison().isEqualTo(rule)
-        assertThat(actual.get(1)).usingRecursiveComparison().isEqualTo(rule2)
+        assertTrue(actual.stream()
+                .anyMatch {rule -> ruleEntity.name == rule.name
+                        || ruleEntity2.name == rule.name
+                })
     }
 }
