@@ -31,15 +31,14 @@ class RuleControllerSBTest extends AbstractSBTest {
 
     @BeforeEach
     void setUp() {
-        wm.stubFor(WireMock.post(urlEqualTo("/jwt/api/v1/jwt/validate"))
-                .willReturn(okJson("{\"isValid\": true}").withHeader("Content-Type", "application/json")))
+        wm.stubFor(WireMock.post(urlEqualTo("/jwt/api/v1/jwt/validate")).willReturn(okJson("{\"isValid\": true}")))
     }
 
     @DisplayName("должен возвращать ожидаемые правила")
     @Test
     void shouldReturnExpectedRules() {
         // given
-        ruleRepository.saveAll(Arrays.asList(ruleEntity, ruleEntity2))
+        ruleRepository.saveAll(List.of(ruleEntity, ruleEntity2))
 
         // when
         String response = mockMvc.perform(get(basePath)
